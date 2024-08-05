@@ -1,25 +1,33 @@
 const { DataTypes } = require('sequelize')
 const conection = require('../database/connections')
+const Usuario = require('./usuario')
 
-const CollectionPoints = conection.define('collection_points', {
+const LocalDeColeta = conection.define('locais_coleta', {
     name: {
         type: DataTypes.STRING(150),
-        allowNull: false
     },
     address: {
         type: DataTypes.TEXT,
-        allowNull: false,
+    },
+    usuario_id: {
+        type: DataTypes.INTEGER,
     },
     latitude: {
         type: DataTypes.DECIMAL(10, 8),
-        allowNull: false,
     }, 
     longitude: {
         type: DataTypes.DECIMAL(10, 8),
-        allowNull: false,
     }, 
 }, {
     paranoid: true // (deletedAt require if parainoid is true)
 })
 
-module.exports = CollectionPoints
+
+LocalDeColeta.belongsTo(Usuario, {
+    foreignKey: 'usuario_id'
+
+})
+
+
+
+module.exports = LocalDeColeta

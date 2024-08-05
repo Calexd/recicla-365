@@ -1,5 +1,5 @@
 const regexEmail = new RegExp(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)
-const User = require('../models/user')
+const Usuario = require('../models/usuario')
 
 
 
@@ -29,7 +29,7 @@ class userController {
                 return response.status(400).json({message: "Senha deve ter entre 8 e 16 caracteres. Por favor, insira uma senha válida."})
             }
     
-            const userExist = await User.findOne({
+            const userExist = await Usuario.findOne({
                 where: {
                     email: data.email
                 }
@@ -39,7 +39,7 @@ class userController {
                 return response.status(409).json({message: "O endereço de e-mail já está registrado. Por favor, use um e-mail diferente."})
             }
     
-            const user = await User.create({
+            const user = await Usuario.create({
                 ...data,
                 password_hash: data.password
             })
@@ -64,7 +64,7 @@ class userController {
 
     async listUsers(request, response) {
         try {
-            const Users = await User.findAll()
+            const Users = await Usuario.findAll()
             response.status(200).json(Users)
         } catch (error) {
             console.error(error)
@@ -78,7 +78,7 @@ class userController {
     async deleteUser(request, response) {
         try {
             const userId = request.params.id
-            const user = await User.findByPk(userId)
+            const user = await Usuario.findByPk(userId)
 
             if (!user) {
                 return response.status(404).json({mensagem: `Usuário com ID: ${userId}, não encontrado`})
@@ -100,14 +100,14 @@ class userController {
         try {
             const id = request.params.id
             const data = request.body
-            const user = await User.findByPk(id)
+            const user = await Usuario.findByPk(id)
 
             if (!user) {
                 return response.status(404).json({mensagem: "Usuário não encontrado"})
             }
 
             if (data.email && data.email !== user.email) {
-                const emailExist = await User.findOne({
+                const emailExist = await Usuario.findOne({
                     where: {
                         email: data.email
                     }
@@ -145,7 +145,7 @@ class userController {
     async listUser(request, response) {
         try {
             const id = request.params.id
-            const user = await User.findByPk(id)
+            const user = await Usuario.findByPk(id)
 
             if (!user) {
                 return response.status(404).json({

@@ -3,32 +3,36 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.createTable('collected_wastes', {
+    await queryInterface.createTable('locais_coleta', {
       id: {
         primaryKey: true,
         type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true
       },
-      collection_point_id: {
+      name: {
+        type: Sequelize.STRING(150),
+        allowNull: false,
+      },
+      address:{
+        type: Sequelize.TEXT,
+        allowNull: false,
+      },
+      user_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'collection_points', 
+          model: 'usuarios', 
           key: 'id'
         },
       },
-      waste_type_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'waste_types', 
-          key: 'id'
-        },
+      latitude:{
+        type: Sequelize.DECIMAL(10, 8),
+        allowNull: false
       },
-      quantity: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
+      longitude:{
+        type: Sequelize.DECIMAL(10, 8),
+        allowNull: false
       },
       createdAt: {
         type: Sequelize.DATE,
@@ -46,6 +50,6 @@ module.exports = {
   }, 
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.dropTable('collected_wastes')
+    await queryInterface.dropTable('locais_coleta')
   }
 };

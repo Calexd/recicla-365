@@ -1,4 +1,4 @@
-const User = require('../models/user')
+const Usuario = require('../models/usuario')
 const { compare } = require('bcryptjs')
 const {sign} = require('jsonwebtoken')
 
@@ -13,7 +13,7 @@ class LoginController {
             return response.status(404).json({message:  "Email e senha são obrigatorios"})
         }
 
-        const user = await User.findOne({
+        const user = await Usuario.findOne({
             where: {
                 email: data.email,
 
