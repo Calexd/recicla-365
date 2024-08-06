@@ -5,7 +5,11 @@ const userRoutes = new Router()
 
 
 
-userRoutes.post('/', LoginController.login)
+userRoutes.post('/', LoginController.login
+    /*
+    #swagger.tags = ['Login']
+*/
+)
 
 
 

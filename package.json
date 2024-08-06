@@ -6,7 +6,7 @@
   "scripts": {
     "start:dev": "nodemon ./src/index.js",
     "start:prod": "nodemon ./src/index.js",
-    "swagger": "node /autoGen.swagger.js"
+    "swagger": "node ./autoGen.swagger.js"
   },
   "keywords": [],
   "author": "",

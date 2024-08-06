@@ -10,6 +10,10 @@ const validateToken = require('../middlewares/ValidateToken')
 
 const routes = new Router()
 
+const swaggerUi = require ('swagger-ui-express')
+const swaggerDocument = require('./doc.swagger.json')
+
+routes.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 routes.use('/permissoes', validateToken, permissoesRoutes)
 
